@@ -1,0 +1,27 @@
+.base-button {
+  display: inline-block;
+  width: 160px;
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--text-color);
+  background-color: var(--secondary-color);
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.base-button:hover {
+  background-color: var(--primary-color);
+  opacity: 0.8;
+  transition: 0.25s ease-in-out;
+}
+
+.base-button:active {
+  background-color: var(--primary-color);
+}
+
+.base-button:disabled {
+  background-color: var(--disabled-color);
+}
