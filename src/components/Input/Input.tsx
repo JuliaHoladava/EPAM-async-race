@@ -1,16 +1,18 @@
-import React, { ReactElement, MouseEvent } from 'react';
+import React, { ReactElement, ChangeEvent } from 'react';
 
 interface PropsInput {
   type: 'text' | 'color';
   className?: string;
   placeholder?: string;
-  onClick?: (event?: MouseEvent) => void | Promise<void>;
+  value: string;
+  onChange?: (event?: ChangeEvent) => void | Promise<void>;
 }
 
 const Input = ({
   className,
   type,
-  onClick,
+  value,
+  onChange,
   placeholder,
 }: PropsInput): ReactElement => {
   return (
@@ -18,7 +20,8 @@ const Input = ({
       className={className}
       type={type}
       placeholder={placeholder}
-      onClick={onClick}
+      value={value}
+      onChange={onChange}
     />
   );
 };
