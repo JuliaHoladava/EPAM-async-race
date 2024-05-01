@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setCarDetails } from '../../redux/reducers/carDetailsSlice';
+import { addCar, setCarDetails } from '../../redux/reducers/carDetailsSlice';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
 import './CarForm.css';
@@ -33,14 +33,22 @@ const CarForm = ({
     const method = type === 'create' ? 'POST' : 'PUT';
 
     try {
-      await axios({
+      const response = await axios({
         method: method,
         url: url,
         data: { name, color },
       });
+
       setName('');
       setColor('#e02bc8');
-      dispatch(setCarDetails({ name: '', color: '#e02bc8' }));
+
+      if (type === 'create') {
+        dispatch(addCar(response.data));
+      }
+
+      if (type === 'update') {
+        dispatch(setCarDetails(response.data));
+      }
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error message:', error.message);
