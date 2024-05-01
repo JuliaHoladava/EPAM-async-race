@@ -22,8 +22,11 @@ const carDetailsSlice = createSlice({
     setCars: (state, action: { payload: PropsCar[] }) => {
       state.cars = action.payload;
     },
+    addCar: (state, action: { payload: PropsCar }) => {
+      state.cars.push(action.payload);
+    },
   },
 });
 
-export const { setCarDetails, setCars } = carDetailsSlice.actions;
+export const { setCarDetails, setCars, addCar } = carDetailsSlice.actions;
 export default carDetailsSlice.reducer;
