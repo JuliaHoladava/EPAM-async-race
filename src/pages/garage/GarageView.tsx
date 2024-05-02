@@ -8,11 +8,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { RootState } from '../../redux/store';
 import { setCars } from '../../redux/reducers/carDetailsSlice';
+import pagination from '../../utils/pagination';
+import Pagination from '../../components/Pagination/Pagination';
 
 const GarageView = (): ReactElement => {
   const dispatch = useDispatch();
   const cars: PropsCar[] = useSelector((state: RootState) => state.car.cars);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 7;
+
+  const paginatedCars = pagination({
+    items: cars,
+    pageNumber: currentPage,
+    pageSize,
+  });
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
@@ -33,11 +43,21 @@ const GarageView = (): ReactElement => {
     fetchData();
   }, []);
 
+  const handlePageChange = (page: number): void => {
+    setCurrentPage(page);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <>
       <div className="heading-block">
         <h2 className="heading">Garage ({cars.length} cars)</h2>
-        <div>Pagination...</div>
+        <Pagination
+          total={cars.length}
+          current={currentPage}
+          pageSize={pageSize}
+          onPageChange={handlePageChange}
+        />
       </div>
       <div className="control-block">
         <div className="control-race">
@@ -54,7 +74,7 @@ const GarageView = (): ReactElement => {
         {isLoading ? (
           <p>Loading cars...</p>
         ) : cars.length > 0 ? (
-          cars.map((car: PropsCar) => <Car key={car.id} {...car} />)
+          paginatedCars.map((car) => <Car key={car.id} {...car} />)
         ) : (
           <p>No cars found</p>
         )}
