@@ -1,16 +1,16 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import Car from '../../components/Car/Car';
-import CarCreateForm from '../../components/CarForm/CarForm';
+import CarForm from '../../components/CarForm/CarForm';
 import './GarageView.css';
 import { PropsCar } from '../../types/interfaces';
 import Button from '../../components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 import { RootState } from '../../redux/store';
 import { setCars } from '../../redux/reducers/carDetailsSlice';
 import pagination from '../../utils/pagination';
 import Pagination from '../../components/Pagination/Pagination';
 import { setPageNumber } from '../../redux/reducers/paginationSlice';
+import { fetchCars } from '../../api/fetchCar';
 
 const GarageView = (): ReactElement => {
   const dispatch = useDispatch();
@@ -29,22 +29,19 @@ const GarageView = (): ReactElement => {
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
+      setIsLoading(true);
       try {
-        setIsLoading(true);
-        const response = await axios.get<PropsCar[]>(
-          'http://localhost:3000/garage',
-        );
-        const data = response.data;
-        dispatch(setCars(data));
-        setIsLoading(false);
+        const carsData = await fetchCars();
+        dispatch(setCars(carsData));
       } catch (error) {
         console.error('Error fetching cars:', error);
+      } finally {
         setIsLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   const handlePageChange = (page: number): void => {
     dispatch(setPageNumber(page));
@@ -68,8 +65,8 @@ const GarageView = (): ReactElement => {
           <Button type="button">Reset</Button>
         </div>
         <div className="control-create">
-          <CarCreateForm type={'create'} />
-          <CarCreateForm type={'update'} />
+          <CarForm type={'create'} />
+          <CarForm type={'update'} />
           <Button type="button">Generate 100 cars</Button>
         </div>
       </div>
