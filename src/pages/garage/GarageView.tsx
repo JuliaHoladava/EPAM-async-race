@@ -20,6 +20,7 @@ const GarageView = (): ReactElement => {
   const currentPage = useSelector(
     (state: RootState) => state.pagination.pageNumber,
   );
+  const editingCar = useSelector((state: RootState) => state.car.editingCar);
 
   const paginatedCars = pagination({
     items: cars,
@@ -65,8 +66,7 @@ const GarageView = (): ReactElement => {
           <Button type="button">Reset</Button>
         </div>
         <div className="control-create">
-          <CarForm type={'create'} />
-          <CarForm type={'update'} />
+          <CarForm type={editingCar ? 'update' : 'create'} />
           <Button type="button">Generate 100 cars</Button>
         </div>
       </div>
