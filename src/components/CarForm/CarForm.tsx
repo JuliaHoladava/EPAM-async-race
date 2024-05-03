@@ -1,10 +1,17 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addCar, setCarDetails } from '../../redux/reducers/carDetailsSlice';
+import {
+  addCar,
+  setEditingCar,
+  updateCar,
+} from '../../redux/reducers/carDetailsSlice';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
 import './CarForm.css';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import config from '../../config';
 
 interface CarFormProps {
   type: 'create' | 'update';
@@ -15,21 +22,33 @@ interface CarFormProps {
 
 const CarForm = ({
   type,
-  id,
   initialName = '',
   initialColor = '#e02bc8',
 }: CarFormProps): ReactElement => {
   const [name, setName] = useState(initialName);
   const [color, setColor] = useState(initialColor);
   const dispatch = useDispatch();
+  const editingCar = useSelector((state: RootState) =>
+    type === 'update' ? state.car.editingCar : null,
+  );
+
+  useEffect(() => {
+    if (editingCar && type === 'update') {
+      setName(editingCar.name);
+      setColor(editingCar.color);
+    }
+  }, [editingCar, type]);
 
   const handleSubmit = async (): Promise<void> => {
-    dispatch(setCarDetails({ name, color }));
+    if (type === 'update' && (!editingCar || !editingCar.id)) {
+      console.error('Update operation requires an ID and editing car data');
+      return;
+    }
 
     const url =
-      type === 'update' && id
-        ? `http://localhost:3000/garage/${id}`
-        : `http://localhost:3000/garage`;
+      type === 'update' && editingCar && editingCar.id
+        ? `${config.apiUrl}/${editingCar.id}`
+        : `${config.apiUrl}`;
     const method = type === 'create' ? 'POST' : 'PUT';
 
     try {
@@ -39,16 +58,17 @@ const CarForm = ({
         data: { name, color },
       });
 
-      setName('');
-      setColor('#e02bc8');
-
       if (type === 'create') {
         dispatch(addCar(response.data));
       }
 
       if (type === 'update') {
-        dispatch(setCarDetails(response.data));
+        dispatch(updateCar(response.data));
+        dispatch(setEditingCar(null));
       }
+
+      setName('');
+      setColor('#e02bc8');
     } catch (error) {
       if (error instanceof Error) {
         console.error('Error message:', error.message);
