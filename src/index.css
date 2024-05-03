@@ -3,19 +3,33 @@
   --text-color: #ffffff;
   --text-color-light: #b0bec5;
   --primary-color: #007bff;
-  --secondary-color: #ff5722;
-  --background-color: #282c34;
+  --secondary-color: #ed6136;
+  --background-color: #383b42;
   --backdround-footer: #1c1f24;
-  --disabled-color: #717a83;
+  --disabled-color: #4d5258;
   --alert-color: #f44336;
 }
 
-body {
+body,
+* {
   margin: 0;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
     'Lucida Sans', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.main {
+  margin: 0 auto;
+  padding: 40px 20px 100px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+button,
+input {
+  cursor: pointer;
+  color: var(--text-color);
 }
 
 button {
