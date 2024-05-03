@@ -2,6 +2,9 @@ import React, { ReactElement } from 'react';
 import Button from '../Button/Button';
 import './Car.css';
 import sprite from '../../assets/icons/sprite.svg';
+import { useDispatch } from 'react-redux';
+import { removeCar as apiRemoveCar } from '../../api/removeCar';
+import { removeCar } from '../../redux/reducers/carDetailsSlice';
 
 interface PropsCar {
   id: number;
@@ -10,6 +13,17 @@ interface PropsCar {
 }
 
 const Car = ({ id, name, color }: PropsCar): ReactElement => {
+  const dispatch = useDispatch();
+
+  const handleDelete = async (carId: number): Promise<void> => {
+    try {
+      await apiRemoveCar(carId);
+      dispatch(removeCar(carId));
+    } catch (error) {
+      console.error('Error deleting car: ', error);
+    }
+  };
+
   return (
     <div className="car-container">
       <div className="car-container__heading">
@@ -23,7 +37,7 @@ const Car = ({ id, name, color }: PropsCar): ReactElement => {
         <Button
           type="button"
           className="car-container__button"
-          onClick={(): void => {}}
+          onClick={(): Promise<void> => handleDelete(id)}
         >
           Remove
         </Button>
