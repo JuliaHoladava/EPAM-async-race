@@ -10,6 +10,7 @@ export interface SetActiveTabAction {
 }
 
 export interface CarDetails {
+  id?: number;
   name: string;
   color: string;
 }
