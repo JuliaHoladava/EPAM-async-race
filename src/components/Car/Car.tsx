@@ -5,12 +5,7 @@ import sprite from '../../assets/icons/sprite.svg';
 import { useDispatch } from 'react-redux';
 import { removeCar as apiRemoveCar } from '../../api/removeCar';
 import { removeCar } from '../../redux/reducers/carDetailsSlice';
-
-interface PropsCar {
-  id: number;
-  name?: string;
-  color?: string;
-}
+import { PropsCar } from '../../types/interfaces';
 
 const Car = ({ id, name, color }: PropsCar): ReactElement => {
   const dispatch = useDispatch();
