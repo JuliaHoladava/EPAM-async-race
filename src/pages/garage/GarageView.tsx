@@ -10,13 +10,16 @@ import { RootState } from '../../redux/store';
 import { setCars } from '../../redux/reducers/carDetailsSlice';
 import pagination from '../../utils/pagination';
 import Pagination from '../../components/Pagination/Pagination';
+import { setPageNumber } from '../../redux/reducers/paginationSlice';
 
 const GarageView = (): ReactElement => {
   const dispatch = useDispatch();
   const cars: PropsCar[] = useSelector((state: RootState) => state.car.cars);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 7;
+  const currentPage = useSelector(
+    (state: RootState) => state.pagination.pageNumber,
+  );
 
   const paginatedCars = pagination({
     items: cars,
@@ -44,7 +47,7 @@ const GarageView = (): ReactElement => {
   }, []);
 
   const handlePageChange = (page: number): void => {
-    setCurrentPage(page);
+    dispatch(setPageNumber(page));
     window.scrollTo(0, 0);
   };
 
