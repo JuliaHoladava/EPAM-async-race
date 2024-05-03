@@ -5,20 +5,21 @@ import { PropsCar } from '../../types/interfaces';
 interface CarState {
   carDetails: CarDetails | null;
   cars: PropsCar[];
+  editingCar: CarDetails | null;
 }
 
 const initialState: CarState = {
   carDetails: null,
   cars: [],
+  editingCar: null,
 };
+
+const NOT_FOUND_INDEX = -1;
 
 const carDetailsSlice = createSlice({
   name: 'car',
   initialState,
   reducers: {
-    setCarDetails: (state, action: { payload: CarDetails }) => {
-      state.carDetails = action.payload;
-    },
     setCars: (state, action: { payload: PropsCar[] }) => {
       state.cars = action.payload;
     },
@@ -28,9 +29,18 @@ const carDetailsSlice = createSlice({
     removeCar: (state, action: PayloadAction<number>) => {
       state.cars = state.cars.filter((car) => car.id !== action.payload);
     },
+    updateCar: (state, action: { payload: PropsCar }) => {
+      const index = state.cars.findIndex((car) => car.id === action.payload.id);
+      if (index !== NOT_FOUND_INDEX) {
+        state.cars[index] = action.payload;
+      }
+    },
+    setEditingCar: (state, action) => {
+      state.editingCar = action.payload;
+    },
   },
 });
 
-export const { setCarDetails, setCars, addCar, removeCar } =
+export const { setCars, addCar, removeCar, updateCar, setEditingCar } =
   carDetailsSlice.actions;
 export default carDetailsSlice.reducer;
