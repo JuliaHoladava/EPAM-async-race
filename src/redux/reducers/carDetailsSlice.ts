@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { CarDetails } from '../types';
 import { PropsCar } from '../../types/interfaces';
 
@@ -25,8 +25,12 @@ const carDetailsSlice = createSlice({
     addCar: (state, action: { payload: PropsCar }) => {
       state.cars.push(action.payload);
     },
+    removeCar: (state, action: PayloadAction<number>) => {
+      state.cars = state.cars.filter((car) => car.id !== action.payload);
+    },
   },
 });
 
-export const { setCarDetails, setCars, addCar } = carDetailsSlice.actions;
+export const { setCarDetails, setCars, addCar, removeCar } =
+  carDetailsSlice.actions;
 export default carDetailsSlice.reducer;
