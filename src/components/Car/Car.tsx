@@ -4,8 +4,9 @@ import './Car.css';
 import sprite from '../../assets/icons/sprite.svg';
 import { useDispatch } from 'react-redux';
 import { removeCar as apiRemoveCar } from '../../api/removeCar';
-import { removeCar } from '../../redux/reducers/carDetailsSlice';
+import { removeCar, setEditingCar } from '../../redux/reducers/carDetailsSlice';
 import { PropsCar } from '../../types/interfaces';
+import { updateCar as apiUpdateCar } from '../../api/updateCar';
 
 const Car = ({ id, name, color }: PropsCar): ReactElement => {
   const dispatch = useDispatch();
@@ -19,13 +20,22 @@ const Car = ({ id, name, color }: PropsCar): ReactElement => {
     }
   };
 
+  const handleUpdate = async (carData: PropsCar): Promise<void> => {
+    try {
+      const updatedCar = await apiUpdateCar(carData);
+      dispatch(setEditingCar({ ...carData, id: updatedCar.id }));
+    } catch (error) {
+      console.error('Error updating car: ', error);
+    }
+  };
+
   return (
     <div className="car-container">
       <div className="car-container__heading">
         <Button
           type="button"
           className="car-container__button"
-          onClick={(): void => {}}
+          onClick={(): Promise<void> => handleUpdate({ id, name, color })}
         >
           Update
         </Button>
