@@ -1,3 +1,12 @@
+@keyframes drive {
+  from {
+    transform: translate(0);
+  }
+  to {
+    transform: translate(calc(100vw - 120px - 3em));
+  }
+}
+
 .car-container {
   padding-top: 2em;
 }
@@ -44,4 +53,15 @@
   align-items: flex-end;
   margin-left: auto;
   font-size: 1.5em;
+}
+
+.car-driving {
+  animation-name: drive;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.car-stopped {
+  transition: transform 0.5s ease-out;
+  transform: translateX(0);
 }
