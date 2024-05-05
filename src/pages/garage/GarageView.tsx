@@ -22,7 +22,7 @@ const GarageView = (): ReactElement => {
   );
   const editingCar = useSelector((state: RootState) => state.car.editingCar);
 
-  const paginatedCars = pagination({
+  const paginatedCars = pagination<PropsCar>({
     items: cars,
     pageNumber: currentPage,
     pageSize,
