@@ -72,7 +72,11 @@ const WinnersView = (): ReactElement => {
           </thead>
           <tbody>
             {isLoading ? (
-              <p>Loading winners...</p>
+              <tr>
+                <td>
+                  <p>Loading winners...</p>
+                </td>
+              </tr>
             ) : winners.length > 0 ? (
               paginatedWinners.map((winner) => (
                 <RaceResultsTable
@@ -85,7 +89,11 @@ const WinnersView = (): ReactElement => {
                 />
               ))
             ) : (
-              <p>No cars found</p>
+              <tr>
+                <td>
+                  <p>No cars found</p>
+                </td>
+              </tr>
             )}
           </tbody>
         </table>
