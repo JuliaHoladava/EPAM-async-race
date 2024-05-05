@@ -9,6 +9,7 @@ import { PropsCar } from '../../types/interfaces';
 import { updateCar as apiUpdateCar } from '../../api/updateCar';
 import { RootState, AppDispatch } from '../../redux/store';
 import {
+  checkEngineStatus,
   startCarEngine,
   stopCarEngine,
 } from '../../redux/carEngineThunkActions';
@@ -73,12 +74,20 @@ const Car = ({ id, name, color }: PropsCar): ReactElement => {
           carIcon.classList.add('car-stopped');
           break;
         case 'error':
-          carIcon.classList.remove('car-driving');
-          carIcon.style.removeProperty('animation-duration');
+          const computedStyle = window.getComputedStyle(carIcon);
+          const matrix = new WebKitCSSMatrix(computedStyle.transform);
+          carIcon.style.setProperty('--stopped-position', `${matrix.m41}px`);
+          carIcon.classList.add('car-broken');
           break;
       }
     }
-  }, [engineStatus, velocity]);
+  }, [id, engineStatus, velocity]);
+
+  useEffect(() => {
+    if (engineStatus === 'started' && velocity) {
+      dispatch(checkEngineStatus(id));
+    }
+  }, [engineStatus, id, dispatch, velocity]);
 
   return (
     <div className="car-container">
