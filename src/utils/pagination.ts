@@ -1,16 +1,14 @@
-import { PropsCar } from '../types/interfaces';
-
-interface PaginationParams {
-  items: PropsCar[];
+interface PaginationParams<T> {
+  items: T[];
   pageNumber: number;
   pageSize: number;
 }
 
-const pagination = ({
+const pagination = <T>({
   items,
   pageNumber,
   pageSize,
-}: PaginationParams): PropsCar[] => {
+}: PaginationParams<T>): T[] => {
   const startIndex = (pageNumber - 1) * pageSize;
   return items.slice(startIndex, startIndex + pageSize);
 };
