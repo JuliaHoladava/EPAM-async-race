@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/epam-async-race/static/css/main.2bb7a7ce.css",
+    "main.js": "/epam-async-race/static/js/main.87c5ac5d.js",
+    "static/js/453.c494b0be.chunk.js": "/epam-async-race/static/js/453.c494b0be.chunk.js",
+    "static/media/Monoton-Regular.ttf": "/epam-async-race/static/media/Monoton-Regular.1f3bd420f1198c5c85e8.ttf",
+    "static/media/sprite.svg": "/epam-async-race/static/media/sprite.00b70f95a6b44c926ede5f06e08979db.svg",
+    "index.html": "/epam-async-race/index.html",
+    "main.2bb7a7ce.css.map": "/epam-async-race/static/css/main.2bb7a7ce.css.map",
+    "main.87c5ac5d.js.map": "/epam-async-race/static/js/main.87c5ac5d.js.map",
+    "453.c494b0be.chunk.js.map": "/epam-async-race/static/js/453.c494b0be.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2bb7a7ce.css",
+    "static/js/main.87c5ac5d.js"
+  ]
+}
