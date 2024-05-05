@@ -65,3 +65,8 @@
   transition: transform 0.5s ease-out;
   transform: translateX(0);
 }
+
+.car-broken {
+  animation-play-state: paused !important;
+  transform: translate(var(--stopped-position, 0px)) !important;
+}
