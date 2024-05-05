@@ -1,7 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { CarDetails } from '../types';
 import { PropsCar } from '../../types/interfaces';
-import { startCarEngine, stopCarEngine } from '../carEngineThunkActions';
+import {
+  checkEngineStatus,
+  startCarEngine,
+  stopCarEngine,
+} from '../carEngineThunkActions';
 
 interface CarState {
   carDetails: CarDetails | null;
@@ -54,6 +58,17 @@ const carDetailsSlice = createSlice({
       }
     });
     builder.addCase(stopCarEngine.fulfilled, (state, action) => {
+      const { id, status } = action.payload as {
+        id: number;
+        status: 'idle' | 'started' | 'stopped' | 'driving' | 'error';
+      };
+      const foundCar = state.cars.find((car) => car.id === id);
+      if (foundCar) {
+        foundCar.engineStatus = status;
+        foundCar.velocity = 0;
+      }
+    });
+    builder.addCase(checkEngineStatus.rejected, (state, action) => {
       const { id, status } = action.payload as {
         id: number;
         status: 'idle' | 'started' | 'stopped' | 'driving' | 'error';
