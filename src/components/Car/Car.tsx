@@ -1,15 +1,29 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useRef } from 'react';
 import Button from '../Button/Button';
 import './Car.css';
 import sprite from '../../assets/icons/sprite.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeCar as apiRemoveCar } from '../../api/removeCar';
 import { removeCar, setEditingCar } from '../../redux/reducers/carDetailsSlice';
 import { PropsCar } from '../../types/interfaces';
 import { updateCar as apiUpdateCar } from '../../api/updateCar';
+import { RootState, AppDispatch } from '../../redux/store';
+import {
+  startCarEngine,
+  stopCarEngine,
+} from '../../redux/carEngineThunkActions';
+
+const DISTANCE = 500000;
 
 const Car = ({ id, name, color }: PropsCar): ReactElement => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
+  const car = useSelector((state: RootState) =>
+    state.car.cars.find((item) => item.id === id),
+  );
+  const engineStatus = car?.engineStatus;
+  const velocity = car?.velocity;
+
+  const carIconRef = useRef<HTMLDivElement>(null);
 
   const handleDelete = async (carId: number): Promise<void> => {
     try {
@@ -28,6 +42,43 @@ const Car = ({ id, name, color }: PropsCar): ReactElement => {
       console.error('Error updating car: ', error);
     }
   };
+
+  const handleStart = (): void => {
+    dispatch(startCarEngine(id));
+  };
+
+  const handleStop = (): void => {
+    dispatch(stopCarEngine(id));
+  };
+
+  const calculateAnimationDuration = (carVelocity: number): string => {
+    return `${DISTANCE / carVelocity}ms`;
+  };
+
+  useEffect(() => {
+    const carIcon = carIconRef.current;
+    if (carIcon) {
+      switch (engineStatus) {
+        case 'started':
+          if (velocity) {
+            carIcon.classList.add('car-driving');
+            carIcon.style.setProperty(
+              'animation-duration',
+              calculateAnimationDuration(velocity),
+            );
+          }
+          break;
+        case 'stopped':
+          carIcon.classList.remove('car-driving');
+          carIcon.classList.add('car-stopped');
+          break;
+        case 'error':
+          carIcon.classList.remove('car-driving');
+          carIcon.style.removeProperty('animation-duration');
+          break;
+      }
+    }
+  }, [engineStatus, velocity]);
 
   return (
     <div className="car-container">
@@ -51,13 +102,21 @@ const Car = ({ id, name, color }: PropsCar): ReactElement => {
         </p>
       </div>
       <div className="car-container__body">
-        <Button type="button" className="car-container__icon-button">
+        <Button
+          type="button"
+          className="car-container__icon-button"
+          onClick={(): void => handleStart()}
+        >
           ▶
         </Button>
-        <Button type="button" className="car-container__icon-button">
+        <Button
+          type="button"
+          className="car-container__icon-button"
+          onClick={(): void => handleStop()}
+        >
           ||
         </Button>
-        <div className="car-icon">
+        <div className="car-icon" ref={carIconRef}>
           <svg width="100%" height="100%">
             <use xlinkHref={`${sprite}#svgviewer-output`} fill={color} />
           </svg>
