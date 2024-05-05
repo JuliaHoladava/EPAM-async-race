@@ -1,0 +1,33 @@
+.input-container {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.input {
+  height: 30px;
+  padding-left: 10px;
+  background-color: var(--background-color);
+  border-radius: 5px;
+  border-color: var(--secondary-color);
+}
+
+.input:hover,
+input:focus {
+  border-color: var(--primary-color);
+}
+
+.color-input {
+  height: 30px;
+  padding: 0;
+  background-color: var(--background-color);
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.input-button {
+  width: 100px;
+  height: 36px;
+  font-size: 0.7em;
+}

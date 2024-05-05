@@ -1,0 +1,25 @@
+.header {
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--background-color);
+}
+
+.header__logo {
+  margin: 0;
+  font-family: 'Monoton', cursive;
+  font-size: 60px;
+  font-weight: 200;
+  color: var(--primary-color);
+}
+
+.header__navigation {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
+}

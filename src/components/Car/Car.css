@@ -1,0 +1,72 @@
+@keyframes drive {
+  from {
+    transform: translate(0);
+  }
+  to {
+    transform: translate(calc(100vw - 120px - 3em));
+  }
+}
+
+.car-container {
+  padding-top: 2em;
+}
+
+.car-container__heading {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.car-container__body {
+  display: flex;
+  gap: 5px;
+  align-items: flex-end;
+  padding-right: 60px;
+}
+
+.car-container__button {
+  width: 60px;
+  height: 30px;
+  font-size: 0.7em;
+}
+
+.car-container__name {
+  padding-left: 20px;
+  font-family: 'Monoton', cursive;
+  font-size: 24px;
+  font-weight: 200;
+}
+
+.car-container__icon-button {
+  width: 30px;
+  height: 30px;
+}
+
+.car-icon {
+  width: 3em;
+  height: 3em;
+  position: relative;
+}
+
+.finish-flag {
+  display: flex;
+  align-items: flex-end;
+  margin-left: auto;
+  font-size: 1.5em;
+}
+
+.car-driving {
+  animation-name: drive;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.car-stopped {
+  transition: transform 0.5s ease-out;
+  transform: translateX(0);
+}
+
+.car-broken {
+  animation-play-state: paused !important;
+  transform: translate(var(--stopped-position, 0px)) !important;
+}

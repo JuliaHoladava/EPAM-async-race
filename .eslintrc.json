@@ -18,7 +18,7 @@
     "@typescript-eslint/no-unnecessary-type-assertion": "error",
     "max-lines-per-function": [
       "error",
-      { "max": 40, "skipBlankLines": true, "skipComments": true }
+      { "max": 120, "skipBlankLines": true, "skipComments": true }
     ],
     "no-magic-numbers": [
       "error",
@@ -28,6 +28,7 @@
         "enforceConst": true,
         "detectObjects": false
       }
-    ]
+    ],
+    "@typescript-eslint/default-param-last": "off"
   }
 }

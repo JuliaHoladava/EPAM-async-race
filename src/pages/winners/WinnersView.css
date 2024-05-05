@@ -1,0 +1,10 @@
+.heading-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.heading {
+  font-size: 30px;
+}

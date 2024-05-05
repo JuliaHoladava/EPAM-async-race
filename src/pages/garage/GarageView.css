@@ -1,0 +1,28 @@
+.heading-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.heading {
+  font-size: 30px;
+}
+
+.control-block {
+  display: block;
+  padding-top: 60px;
+}
+
+.control-race {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.control-create {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding-top: 30px;
+}
