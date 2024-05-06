@@ -12,7 +12,7 @@ const Header = (): ReactElement => {
 
   const handleTabChange = (tabName: TabName): void => {
     dispatch(setActiveTab(tabName));
-    navigate(`/${tabName}`);
+    navigate(`${tabName}`);
   };
 
   return (

@@ -10,7 +10,7 @@ import store from '../redux/store';
 const App = (): ReactElement => {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename="/EPAM-async-race">
         <Routes>
           <Route path="" element={<Layout />}>
             <Route index element={<GarageView />} />
