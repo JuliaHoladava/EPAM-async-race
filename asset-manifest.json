@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/EPAM-async-race/static/css/main.e329773c.css",
-    "main.js": "/EPAM-async-race/static/js/main.5fe0d109.js",
+    "main.js": "/EPAM-async-race/static/js/main.1e7a9f33.js",
     "static/js/453.c494b0be.chunk.js": "/EPAM-async-race/static/js/453.c494b0be.chunk.js",
     "static/media/Monoton-Regular.ttf": "/EPAM-async-race/static/media/Monoton-Regular.1f3bd420f1198c5c85e8.ttf",
     "static/media/sprite.svg": "/EPAM-async-race/static/media/sprite.00b70f95a6b44c926ede5f06e08979db.svg",
     "index.html": "/EPAM-async-race/index.html",
     "main.e329773c.css.map": "/EPAM-async-race/static/css/main.e329773c.css.map",
-    "main.5fe0d109.js.map": "/EPAM-async-race/static/js/main.5fe0d109.js.map",
+    "main.1e7a9f33.js.map": "/EPAM-async-race/static/js/main.1e7a9f33.js.map",
     "453.c494b0be.chunk.js.map": "/EPAM-async-race/static/js/453.c494b0be.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e329773c.css",
-    "static/js/main.5fe0d109.js"
+    "static/js/main.1e7a9f33.js"
   ]
 }
